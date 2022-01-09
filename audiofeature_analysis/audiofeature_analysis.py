@@ -168,8 +168,11 @@ def artist_similarity_comparaison(df, feature_list, artist_list=None,
             v2 = feature_means_by_artist.loc[artist2, :]
             if similarity == 'euclidian':
                 comparaisons[artist].append(euclidian_similarity(v1, v2))
-            else:
+            elif similarity == 'cosine':
                 comparaisons[artist].append(cosine_similarity(v1, v2))
+            else:
+                print(f"Unsupported similarity metric: {similarity}")
+                print("Please, use one of the following: euclidian or cosine")
 
     heat_map_data = pd.DataFrame(
         comparaisons, index=feature_means_by_artist.index)
