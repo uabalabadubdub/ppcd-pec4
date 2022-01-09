@@ -66,14 +66,15 @@ def most_popular_track_last_n_years(df, years):
     current_year = dt.datetime.now().year
     lookup_years = [current_year - y for y in range(years)]
     mask = df["release_year"].isin(lookup_years)
-    tracks = df.loc[
-        mask, ["name_track", "name_artist", "popularity_track"]]
+    tracks = (
+        df.loc[mask,
+        ["name_track", "name_artist", "popularity_track"]]
+        .sort_values("name_track"))
     most_popular_mask = (
         tracks["popularity_track"]
         == tracks["popularity_track"].max())
-    most_popular_track = tracks.loc[most_popular_mask, [
-        "name_track", "name_artist"]]
-    return most_popular_track
+    most_popular_track = tracks.loc[most_popular_mask, "name_track"]
+    return most_popular_track.tolist()
 
 
 def most_prolifict_artists_since(df, year_decade_lookup):
@@ -85,7 +86,7 @@ def most_prolifict_artists_since(df, year_decade_lookup):
     n_decades = n_years // 10
     lookup_decades = [year_decade_lookup +
                       d for d in range(0, n_decades * 10 + 1, 10)]
-    artists = set(df["name_artist"])
+    artists = set(df["name_artist"].sort_values())
     for id in range(n_decades):
         mask = (df["release_year"] <= lookup_decades[id]) & (
             df["release_year"] < lookup_decades[id + 1])
