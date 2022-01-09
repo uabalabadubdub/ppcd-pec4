@@ -40,7 +40,10 @@ print("Results on images/")
 print("Energy distribution of probability comparaison between Adele and Extremoduro tracks...")
 fa.feature_hist_comparaison(df, "energy", "Adele", "Extremoduro")
 print("Results on images/")
-print("General artists similarity comparaison...")
+print("General artists euclidian similarity comparaison...")
 fa.artist_similarity_comparaison(df, ['danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness',
        'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo'])
+print("General artists cosine similarity comparaison...")
+fa.artist_similarity_comparaison(df, ['danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness',
+       'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo'], similarity='cosine')
 print("Results on images/")
