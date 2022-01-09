@@ -7,8 +7,9 @@ with at leas the following columns:
     * name_album
     * audio feature columns
 
-This script requires that `pandas` be installed within the Python
-environment you are running this script in.
+This script requires that `pandas`, `numpy`, `matplotlib` and `seaborn`
+be installed within the Python environment you are running this script
+in.
 
 This file is intended to be imported as a module and contains the 
 following functions:
