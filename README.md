@@ -88,5 +88,28 @@ To be used, additional python modules have to be installed on your virtual envir
 - seaborn
 
 
+## Test
+`unittest` [library](https://docs.python.org/3/library/unittest.html#module-unittest) is used to perform unit testing. Repo `data` is used for unit testing. Test can be runned on local with the following command: `python -m unittest test/unit_test.py`
+
+
+Code coverage performed using `coverage` [library](https://coverage.readthedocs.io/en/coverage-5.3/).
+
+
+**Result**: (can be runned on local with the following command `coverage report -m`)
+```
+Name                                             Stmts   Miss  Cover   Missing
+------------------------------------------------------------------------------
+audiofeature_analysis/__init__.py                    0      0   100%
+audiofeature_analysis/audiofeature_analysis.py      80      2    98%   53, 162
+data_input/__init__.py                              17      6    65%   8-9, 12-13, 18-19
+data_input/data_input.py                            57      0   100%
+data_wrangling/__init__.py                           0      0   100%
+data_wrangling/data_wrangling.py                    31      0   100%
+test/__init__.py                                     0      0   100%
+test/unit_test.py                                   89      1    99%   186
+------------------------------------------------------------------------------
+TOTAL                                              274      9    97%
+```
+
 ## License
 This package follows **Creative Commons Zero v1.0 Universal** license.
