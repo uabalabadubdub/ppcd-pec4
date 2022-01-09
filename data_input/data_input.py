@@ -149,3 +149,4 @@ def time_it():
     ax.legend(["pandas", "iostream"])
     fig.savefig('images/column_input_methods_comparative.png')
     plt.show(block=True)
+    return fig

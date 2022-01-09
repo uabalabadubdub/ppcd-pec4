@@ -40,7 +40,6 @@ execution path to save the result graphs.
 
 import pandas as pd
 from matplotlib import pyplot as plt
-import matplotlib.patches as mpatches
 from functools import reduce
 import numpy as np
 import seaborn as sns
@@ -75,6 +74,7 @@ def feature_mean_by_album_for_group(df, feature, artist):
     plt.tight_layout()
     fig.savefig(f"images/avg_{feature}_by_album_for_{artist}.png")
     plt.show(block=True)
+    return fig
 
 
 def feature_prob_dens_histogram(df, feature, artist, fig=None, save=True):
@@ -121,7 +121,8 @@ def feature_hist_comparaison(df, feature, artist_1, artist_2):
     """returns graph with two histograms with the probability density for
     a given feature for specified artists"""
     fig = feature_prob_dens_histogram(df, feature, artist_1, save=False)
-    feature_prob_dens_histogram(df, feature, artist_2, fig)
+    fig = feature_prob_dens_histogram(df, feature, artist_2, fig)
+    return fig
 
 
 def euclidian_similarity(vector1, vector2):
@@ -177,6 +178,7 @@ def artist_similarity_comparaison(df, feature_list, artist_list=None,
             else:
                 print(f"Unsupported similarity metric: {similarity}")
                 print("Please, use one of the following: euclidian or cosine")
+                return None
 
     heat_map_data = pd.DataFrame(
         comparaisons, index=feature_means_by_artist.index)

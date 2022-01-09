@@ -17,4 +17,5 @@ for child in current_path.iterdir():
     if child.name == 'data.zip':
         print(f"Moving {child.name} to data/...")
         child.replace(datafolder / child.name)
+print("Setup DONE!")
 print()
