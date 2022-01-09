@@ -18,7 +18,7 @@ Zip compressed file has to have the following name:
 
 On charge, this module will automatically create a `data` and `imanges`
 folder under main script execution path, and look for any file in main
-execution script path named `data.zip` and move it to `data` path.  
+execution script path named `data.zip` and move it to `data` path.
 
 This script requires that `pandas` and `matplotlib` be installed within
 the Python environment you are running this script in.
