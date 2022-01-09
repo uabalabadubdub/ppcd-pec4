@@ -27,7 +27,7 @@ print(
 last10years_most_pop_tracks = dw.most_popular_track_last_n_years(df, 10)
 print(
     f"""What's the most popular track of the last
- 10 years (song, artist): {last10years_most_pop_tracks.values}""")
+ 10 years (song, artist): {last10years_most_pop_tracks}""")
 # ¿Qué artistas tienen tracks en cada una de las décadas desde el 1960?
 most_prolifict_artist_since1960 = dw.most_prolifict_artists_since(df, 1960)
 print(
