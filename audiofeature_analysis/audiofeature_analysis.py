@@ -7,6 +7,9 @@ with at leas the following columns:
     * name_album
     * audio feature columns
 
+Is itended to be used on dataframe charged using
+`data_input.data_denormalizer`.
+
 This script requires that `pandas`, `numpy`, `matplotlib` and `seaborn`
 be installed within the Python environment you are running this script
 in.
