@@ -1,3 +1,52 @@
+"""Data Input
+
+This module allows the user to charge data for audio feature analysis.
+
+This module accepts comma separated value files (.csv) or a zip
+compressed folder with comma separated value files inside.
+
+Comma separated value files have to be inside a folder named data under
+script execution path and have the following names:
+
+    * albums_norm.csv
+    * artists_norm.csv
+    * tracks_norm.csv
+
+Zip compressed file has to have the following name:
+    
+    * data.zip
+
+On charge, this module will automatically create a `data` and `imanges`
+folder under main script execution path, and look for any file in main
+execution script path named `data.zip` and move it to `data` path.  
+
+This script requires that `pandas` and `matplotlib` be installed within
+the Python environment you are running this script in.
+
+This file is intended to be imported as a module and contains the 
+following functions:
+
+    * data_denormalizer - returns a dataframe given a path to a
+        zipped folder with csv files inside named `albums_norm.csv`
+        `artists_norm.csv` and `tracks_norm.csv`; dataframe has
+        all three csv joined by `artist_id`, `album_id` and `track_id`
+        fields; Capitalizes all artist names and Fills tracks
+        `popularity` missing values with mean value
+    * get_column_pandas - returns specified column using pandas as
+        charge method given column name and path to csv; requires to
+        specify separator type
+    * get_column_iostream - returns specified column using iostream as
+        charge method given column name and path to csv; requires to
+        specify separator type
+    * time_it - returns a graph with a comparaison of time between
+        `get_column_pandas` and `get_column_iostream`; requires csv
+        files inside `./data` folder named `albums_norm.csv`,
+        `artists_norm.csv` and `tracks_norm.csv` 
+
+All functions returning graphs require a `images` folder under
+execution path to save the result graphs.
+"""
+
 import pandas as pd
 import zipfile as zf
 import numpy as np
@@ -6,6 +55,14 @@ import matplotlib.pyplot as plt
 
 
 def data_denormalizer(data_folder):
+    """
+    returns a dataframe given a path to a zipped folder with csv files
+    inside named `albums_norm.csv`, `artists_norm.csv` and
+    `tracks_norm.csv`; dataframe has all three csv joined by
+    `artist_id`, `album_id` and `track_id` fields; Capitalizes all
+    artist names and Fills tracks `popularity` missing values with mean
+    value.
+    """
     with zf.ZipFile(data_folder, 'r') as zip_f:
         zip_f.extractall("data")
 
@@ -17,7 +74,8 @@ def data_denormalizer(data_folder):
 
     null_count = tracks_norm_df["popularity"].isna().sum()
     avg_popularity = tracks_norm_df["popularity"].mean()
-    tracks_norm_df["popularity"].replace(np.nan, avg_popularity, inplace=True)
+    tracks_norm_df["popularity"].replace(np.nan, avg_popularity,
+                                         inplace=True)
 
     denorm_tracks = tracks_norm_df.merge(
         artists_norm_df[["artist_id", "name",
@@ -31,7 +89,8 @@ def data_denormalizer(data_folder):
         suffixes=("_track", "_album"))
 
     denorm_tracks.rename(
-        {"name": "name_album", "popularity": "popularity_album"}, axis=1, inplace=True)
+        {"name": "name_album", "popularity": "popularity_album"},
+        axis=1, inplace=True)
 
     print(f"nº of tracks: {denorm_tracks.shape[0]}")
     print(f"nº of columns: {denorm_tracks.shape[1]}")
@@ -40,15 +99,17 @@ def data_denormalizer(data_folder):
 
 
 def get_column_pandas(path, separator, column_name):
-    "implementará la lectura mediante pandas."
+    """returns specified column using pandas as
+    charge method given column name and path to csv; requires to
+    specify separator type"""
     column = pd.read_csv(path, sep=separator, usecols=[column_name])
     return column.values.tolist()
 
 
 def get_column_iostream(path, separator, column_name):
-    """implementará la lectura mediante el método escogido
-por vosotros. Debéis sustituir {your_method} con un nombre que identifique de
-alguna manera el algoritmo escogido."""
+    """returns specified column using iostream as
+    charge method given column name and path to csv; requires to
+    specify separator type"""
     with open(path, "r") as f:
         header = f.readline().split(sep=separator)
         col_num = header.index(column_name)
@@ -60,6 +121,10 @@ alguna manera el algoritmo escogido."""
 
 
 def time_it():
+    """returns a graph with a comparaison of time between 
+    `get_column_pandas` and `get_column_iostream`; requires csv
+    files inside `./data` folder named `albums_norm.csv`,
+    `artists_norm.csv` and `tracks_norm.csv`."""
     paths = ["data/artists_norm.csv",
              "data/albums_norm.csv", "data/tracks_norm.csv"]
     columns = ["artist_id", "album_id", "track_id"]
