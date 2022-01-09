@@ -54,11 +54,13 @@ print("General artists euclidian similarity comparaison...")
 fa.artist_similarity_comparaison(
        df,
        ['danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness',
-       'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo'])
+       'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo',
+       'time_signature'])
 print("General artists cosine similarity comparaison...")
 fa.artist_similarity_comparaison(
        df,
        ['danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness',
-       'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo'],
+       'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo',
+       'time_signature'],
        similarity='cosine')
 print("Results on images/")
